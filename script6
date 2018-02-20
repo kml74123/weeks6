@@ -19,7 +19,7 @@ echo ' use http://ftp.us.debian.org/debain'
 
 echo 'creat /etc/fstab '
 
-echo 'mount fule system inside chroot'
+echo 'mount file system inside chroot'
 
 sudo chroot image.mount mount -a
 
@@ -27,7 +27,7 @@ echo 'enable netwoking'
 sudo cp /etc/resolv.conf image.mount/etc
 sudo cp /etc/hosts image.mount/etc
 
-echo 'make it bootable
+echo 'make it bootable'
 
 sudo chroot image.mount apt-get update
 sudo chroot image.mount apt-get install \ linux-image-2.5.24-17-generic
