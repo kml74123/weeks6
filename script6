@@ -1,0 +1,41 @@
+#!bin/bash
+
+echo "Create a raw disk image using debootstrap"
+
+
+echo "creat 1GB raw image'
+dd if=/dev/zero of image.raw bs=1024 count=1048576
+
+echo "format it with ext3 file system"
+
+echo 'mount it'
+mkdir -p image.mount
+sudo mount -o loop,offset=32256 image.raw image.mount
+
+echo 'configure a chroot'
+echo 'debootstrap it'
+/usr/sbin/debootstrap --arch i386 etch image.mount \
+echo ' use http://ftp.us.debian.org/debain'
+
+echo 'creat /etc/fstab '
+
+echo 'mount fule system inside chroot'
+
+sudo chroot image.mount mount -a
+
+echo 'enable netwoking'
+sudo cp /etc/resolv.conf image.mount/etc
+sudo cp /etc/hosts image.mount/etc
+
+echo 'make it bootable
+
+sudo chroot image.mount apt-get update
+sudo chroot image.mount apt-get install \ linux-image-2.5.24-17-generic
+
+echo 'install grub'
+sudo chroot image.mount apt-get install grub
+sudo chroot image.mount apt-get grub-install /dewv/???
+sudo chroot image.munt apt-get update-grub
+
+echo 'done boo it up'
+sudo qemu -keernel-kqemu image.raw
