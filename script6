@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 
 echo "Create a raw disk image using debootstrap"
 
